@@ -1,17 +1,27 @@
 import React from 'react'
-import {useSelector} from 'react-redux';
-import { useForm } from '../hooks'
+import { useSelector, useDispatch } from 'react-redux'
+import { useForm, useDebounce } from '../hooks'
 import { api } from '../api'
+import { imagesAdd } from '../state/imagesReducer/images.actions'
+import Pusher from 'pusher-js'
 
+const pusher = new Pusher('417939ee8254e91f4f58', {
+  cluster: 'us2'
+});
+const channel = pusher.subscribe('channel-upload-images');
 
+/**
+ *
+ *
+ * @export
+ * @return {Function} 
+ */
 export default function Upload() {
+  const dispatch = useDispatch();
   const refFile = React.useRef(null);
-  const imagesAll = useSelector(state => state.images);
   const [formValue, handleInput, handleInputReset] = useForm({
     images: []
   });
-
-  console.log(imagesAll);
 
   const { images } = formValue;
 
@@ -36,7 +46,20 @@ export default function Upload() {
 
   React.useEffect(() => {
     uploadFile();
-  }, [images])
+  }, [images]);
+
+  /** @type {*} */
+  const [executedFunction, cancelDebounce] = useDebounce((data) => {
+    dispatch(imagesAdd(data));
+  }, 1000);
+
+  try {
+    channel.bind('event-0123456789abcdef', function (e) {
+      cancelDebounce();
+      executedFunction(typeof e.message === "string" ?
+        JSON.parse(e.message) : e.message);
+    });
+  } catch (error) { }
 
   return (
     <div className="m-2 cursor-pointer">

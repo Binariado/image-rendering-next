@@ -1,6 +1,7 @@
 import {
   SELECTIMAGES,
   IMAGESALL,
+  IMAGESADD,
 } from './images.types';
 
 const INITIAL_STATE = {
@@ -15,12 +16,17 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectPlayer: action.payload
       };
-    case IMAGESALL:
+    case IMAGESADD:
       const { imagesAll } = state;
       imagesAll.push(action.payload);
       return {
         ...state,
-        imagesAll
+        imagesAll: imagesAll
+      };
+    case IMAGESALL:
+      return {
+        ...state,
+        imagesAll: action.payload
       };
     default: return state;
   }

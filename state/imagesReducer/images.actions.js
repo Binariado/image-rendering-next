@@ -1,10 +1,26 @@
 import {
-  SELECTPLAYER,
+  SELECTIMAGES,
+  IMAGESALL,
+  IMAGESADD
 } from './images.types';
 
-export const selectPlayer = (payload) => {
+export const selectImages = (payload) => {
   return {
     payload,
-    type: SELECTPLAYER
+    type: SELECTIMAGES
+  };
+};
+
+export const imagesAll = (payload) => {
+  return {
+    payload,
+    type: IMAGESALL
+  };
+};
+
+export const imagesAdd = (payload) => {
+  return {
+    payload,
+    type: IMAGESADD
   };
 };
