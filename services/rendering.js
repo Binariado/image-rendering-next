@@ -2,6 +2,7 @@ import { db } from "../firebase-config";
 import { imgUpload } from '../helpers/imgUpload'
 import { size } from '../helpers/autosize'
 import Pusher from 'pusher';
+import { Env } from '../utils/Env'
 
 
 const pusher = new Pusher({

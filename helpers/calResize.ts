@@ -1,8 +1,7 @@
 import { PropsResize } from '../utils/autoResize';
 
 /**
- * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
- * images to fit into a certain area.
+ * Conserva la relación de aspecto de la región original
  *
  * @param {Number} srcWidth width of source image
  * @param {Number} srcHeight height of source image
