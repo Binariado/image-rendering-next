@@ -48,6 +48,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         })
     });
 
+
     form.on('end', function (err, files) {
       res.status(200).json({ upload: true })
     });
@@ -55,7 +56,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) => {
       const { images } = files;
       const arrayImage = images instanceof Array ? images : [images];
-      // console.log(arrayImage.length)
+      
       if (err) {
         res.status(404).json({ message: "error" })
       }

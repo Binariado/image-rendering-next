@@ -1,7 +1,6 @@
 import { db } from "../firebase-config";
-import { imgUpload, cloudinary, } from '../helpers/imgUpload'
+import { imgUpload } from '../helpers/imgUpload'
 import { size } from '../helpers/autosize'
-import firebase from 'firebase';
 
 class RenderingImg {
   constructor() {
@@ -14,7 +13,10 @@ class RenderingImg {
 
   async addImg(metadata) {
     return await imgUpload(metadata, (dataFile) => {
-      return this.dbImage.add(dataFile);
+      return this.dbImage.add({
+        ...dataFile,
+        uid:  db.collection('users-proteccion').doc('0123456789abcdef')
+      });
     });
   }
 }

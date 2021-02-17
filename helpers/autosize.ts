@@ -1,7 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { calculateAspectRatioFit, resize_image } from "./calResize"
-
-const sizeOf = require('image-size');
+import { calculateAspectRatioFit } from "./calResize"
+import sharp from 'sharp';
 
 const PAGEDEFAULT = "A4";
 const TAMNIOPAGE = {
@@ -11,33 +9,40 @@ const TAMNIOPAGE = {
   }
 }
 
-export const size = (file: any): Promise<unknown> => {
-  return new Promise((resolve, reject) => {
+interface FileProp {
+  path: string,
+  name: string,
+  size: number,
+}
 
-    sizeOf(file.path, function (err: any, dimensions: { width: any; height: any; orientation?: any; type?: any; }) {
-      const { height, orientation, width, type } = dimensions;
-      const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
+export const size = (file: FileProp): Promise<unknown> => {
+  return new Promise((resolve) => {
+    sharp(file.path)
+      .metadata().then((dimensions) => {
+        const { height, orientation, width, format } = dimensions;
+        const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
 
-      const r1 = calculateAspectRatioFit(
-        {
-          srcWidth: width,
-          srcHeight: height,
-          maxWidth: fullTamanio.w,
-          maxHeight: fullTamanio.h
-        }
+        const r1 = calculateAspectRatioFit(
+          {
+            srcWidth: width,
+            srcHeight: height,
+            maxWidth: fullTamanio.w,
+            maxHeight: fullTamanio.h
+          }
+        );
+
+        const dataFile = {
+          height: Math.floor(r1.height),
+          width: Math.floor(r1.width),
+          orientation,
+          format,
+          path: file.path,
+          name: file.name,
+          size: file.size,
+        };
+
+        resolve(dataFile);
+      }
       );
-
-      const dataFile = {
-        height: Math.floor(r1.height),
-        width: Math.floor(r1.width),
-        orientation,
-        type,
-        path: file.path,
-        name: file.name,
-        size: file.size,
-      };
-
-      resolve(dataFile);
-    })
   })
 }
