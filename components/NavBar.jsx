@@ -23,14 +23,15 @@ size: 1618804
  */
 export default function NavBar() {
   const images = useSelector(state => state.images);
-  const {imagesAll} = images;
+  const { imagesAll } = images;
 
   return (
     <div className="h-full overflow-x-auto cursor-pointer">
       <Upload />
       <div className="w-full  p-2">
         {imagesAll.map((item, idx) => (
-          <figure key={`${item.name}-${idx}`} className="w-full rounded-xl flex h-30 max-h-30 justify-center">
+          <figure key={`${item.name}-${idx}`} className="w-full rounded-xl flex flex-col h-30 max-h-30 justify-center items-center mb-2">
+            <span>page {idx + 1}</span>
             <img className="w-20 h-20 md:h-auto" src={item.secure_url} />
           </figure>
         ))}
