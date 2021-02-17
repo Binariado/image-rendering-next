@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import Upload from './Upload'
+import Link from 'next/link'
 
 /* 
 format: "jpg"
@@ -30,10 +31,12 @@ export default function NavBar() {
       <Upload />
       <div className="w-full  p-2">
         {imagesAll.map((item, idx) => (
-          <figure key={`${item.name}-${idx}`} className="w-full rounded-xl flex flex-col h-30 max-h-30 justify-center items-center mb-2">
-            <span>page {idx + 1}</span>
-            <img className="w-20 h-20 md:h-auto" src={item.secure_url} />
-          </figure>
+          <Link key={`${item.name}-${idx}`} href={`/#page-${idx + 1}`}>
+            <figure  className="w-full rounded-xl flex flex-col h-30 max-h-30 justify-center items-center mb-2">
+              <span>page {idx + 1}</span>
+              <img className="w-20 h-20 md:h-auto" src={item.secure_url} />
+            </figure>
+          </Link>
         ))}
       </div>
     </div>
