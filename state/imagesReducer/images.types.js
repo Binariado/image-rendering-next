@@ -1,0 +1,2 @@
+export const SELECTIMAGES = "SELECTIMAGES"
+export const IMAGESALL = "IMAGESALL"
