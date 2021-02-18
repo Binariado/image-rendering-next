@@ -27,12 +27,12 @@ export default function NavBar() {
   const { imagesAll } = images;
 
   return (
-    <div className="h-full overflow-x-auto cursor-pointer">
+    <div className="h-full overflow-hidden">
       <Upload />
-      <div className="w-full  p-2">
+      <div className="w-full h-full overflow-x-auto  p-2">
         {imagesAll.map((item, idx) => (
           <Link key={`${item.name}-${idx}`} href={`/#page-${idx + 1}`}>
-            <figure  className="w-full rounded-xl flex flex-col h-30 max-h-30 justify-center items-center mb-2">
+            <figure  className="w-full rounded-xl flex flex-col h-30 max-h-30 justify-center items-center mb-2 cursor-pointer">
               <span>page {idx + 1}</span>
               <img className="w-20 h-20 md:h-auto" src={item.secure_url} />
             </figure>

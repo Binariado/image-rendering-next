@@ -15,6 +15,12 @@ interface FileProp {
   size: number,
 }
 
+/**
+ *
+ *
+ * @param {FileProp} file imagen a procesar
+ * @return {*}  {Promise<unknown>} promesa devuelta con los datos de la imagen
+ */
 export const size = (file: FileProp): Promise<unknown> => {
   return new Promise((resolve) => {
     sharp(file.path)

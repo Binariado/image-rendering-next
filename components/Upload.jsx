@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useForm, useDebounce } from '../hooks'
 import { api } from '../api'
 import { imagesAdd } from '../state/imagesReducer/images.actions'
