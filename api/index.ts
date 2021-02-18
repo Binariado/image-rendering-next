@@ -1,4 +1,4 @@
-const URL_API = "http://localhost:3000/api";
+const URL_API = "/api";
 
 const responsed = async (resp: any, status: number) => {
   return {
