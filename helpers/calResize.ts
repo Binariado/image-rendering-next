@@ -7,6 +7,7 @@ import { PropsResize } from '../utils/autoResize';
  * @param {Number} srcHeight altura de la imagen de origen
  * @param {Number} maxWidth ancho máximo disponible
  * @param {Number} maxHeight altura máxima disponible
+ * @param {Number} orientation orientación de la imagen
  * @return {Object} { width, height }
  */
 export function calculateAspectRatioFit({ srcWidth, srcHeight, maxWidth, maxHeight, orientation }: PropsResize) {
