@@ -3,4 +3,15 @@
   height: 1123px;
 }
 
+.page-vertical{
+  width: 796px;
+  height: 1123px;
+}
+
+.page-horizontal{
+  height: 796px;
+  width: 1123px;
+}
+
+
 /* 796,8 x 1123,2 */

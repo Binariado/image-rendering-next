@@ -1,72 +1,53 @@
 import React from 'react'
 import Head from 'next/head'
+import { useSelector } from 'react-redux'
 import styles from '../styles/Home.module.css'
-import { useForm } from '../hooks'
-import {api} from '../api'
+import NavBar from '../components/NavBar'
 
+const ORIENTATION = {
+  "1": "vertical",
+  "8": "horizontal",
+  "3": "vertical",
+  "6": "horizontal",
+  "0": "vertical",
+}
+
+const urlImageBase = 'https://res.cloudinary.com/dfcqfoabr/image/upload';
+const verion = 'v1613592899';
 
 export default function Home() {
-  const refFile = React.useRef(null);
-  const [formValue, handleInput, handleInputReset] = useForm({
-    images: []
-  });
-
-  const { images } = formValue;
-
-  const uploadFile = async () => {
-    if(images.length === 0) {
-      return;
-    }
-
-    try {
-      const resp = await api.uploadImages({images});
-      console.log(resp);
-      handleInputReset();
-      refFile.current.value = '';
-    } catch (error) {
-      
-    }
-  }
-
-  React.useEffect(() => {
-    uploadFile();
-  }, [images])
-
+  const images = useSelector(state => state.images);
+  const { imagesAll } = images;
+  console.log(imagesAll)
   return (
     <div className="h-screen flex">
-      <div className="h-full w-1/5 max-w-sm">
-        <div className="">
-          <input ref={refFile} name="images" onChange={handleInput} type="file" multiple />
-        </div>
-        <div className="w-full  p-2">
-          <figure className="w-full rounded-xl flex h-30 max-h-30">
-            <img className="w-16 h-16 md:h-auto" src="https://ep01.epimg.net/elpais/imagenes/2019/08/26/buenavida/1566815443_201344_1566817103_noticia_normal.jpg" />
-            <div className="truncate pl-1">
-              perro mirando la calle
-              perro mirando la calle
-            </div>
-          </figure>
-        </div>
-      </div>
+      <NavBar />
       <div className="h-full flex-1 container px-4 overflow-x-auto bg-gray-100">
         <div className="grid-flow-row auto-rows-max pt-3.5 pb-10 w-full">
-
-          <div className="conte-page flex justify-center">
-            <div className={`aspect-w-16 aspect-h-10 mb-2.5 page pag-1 bg-white shadow ${styles.page}`}>
-              1
+          {imagesAll.map((item, idx) => (
+            <div id={`page-${idx + 1}`} key={`page-${item.name}-${idx}`} className="conte-page flex justify-center">
+              <div className={`aspect-w-16 aspect-h-10 mb-2.5 bg-white shadow relative ${styles[`page-${ORIENTATION[item.orientation]}`]}`}>
+                <div className="absolute h-20 z-10 top-0 flex justify-start">
+                  <div className="flex flex-col justify-center p-4">
+                    <span>
+                      <span>Orientación: </span>{item.orientation}
+                    </span>
+                    <span>
+                      <span>width: </span>{item.width}
+                    </span>
+                    <span>
+                      <span>height: </span>{item.height}
+                    </span>
+                  </div>
+                  <span className="flex-grow absolute right-0 p-1">{idx + 1}</span>
+                </div>
+                <div className="flex justify-center items-center">
+                  <img className=""
+                    src={`${urlImageBase}/w_${item.width},h_${item.height}/${verion}/${item.public_id}.${item.format}`} />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="conte-page flex justify-center">
-            <div className={`aspect-w-16 aspect-h-10 mb-2.5 page pag-2 bg-white shadow ${styles.page}`}>
-              2
-            </div>
-          </div>
-          <div className="conte-page flex justify-center">
-            <div className={`aspect-w-16 aspect-h-10 mb-2.5 page pag-3 bg-white shadow ${styles.page}`}>
-              3
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </div>

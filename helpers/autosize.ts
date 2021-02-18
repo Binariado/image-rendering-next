@@ -15,30 +15,39 @@ interface FileProp {
   size: number,
 }
 
+/**
+ *
+ *
+ * @param {FileProp} file imagen a procesar
+ * @return {*}  {Promise<unknown>} promesa devuelta con los datos de la imagen
+ */
 export const size = (file: FileProp): Promise<unknown> => {
   return new Promise((resolve) => {
     sharp(file.path)
       .metadata().then((dimensions) => {
-        const { height, orientation, width, format } = dimensions;
+        const { height = 0, orientation, width = 0, format } = dimensions;
         const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
+        const searchOrientation = height > width ? 1 : 8;
+        const $orientation = orientation ? orientation : searchOrientation;
 
         const r1 = calculateAspectRatioFit(
           {
             srcWidth: width,
             srcHeight: height,
             maxWidth: fullTamanio.w,
-            maxHeight: fullTamanio.h
+            maxHeight: fullTamanio.h,
+            orientation: $orientation,
           }
         );
 
         const dataFile = {
           height: Math.floor(r1.height),
           width: Math.floor(r1.width),
-          orientation,
-          format,
-          path: file.path,
-          name: file.name,
-          size: file.size,
+          orientation: $orientation,
+          format: format ? format : '',
+          path: file.path ? file.path : '',
+          name: file.name ? file.name : '',
+          size: file.size ? file.size : '',
         };
 
         resolve(dataFile);

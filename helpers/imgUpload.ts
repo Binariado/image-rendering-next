@@ -1,16 +1,7 @@
 const cloudinary = require('cloudinary').v2;
+import { Env } from "../utils/Env";
 
-cloudinary.config({
-  cloud_name: 'dfcqfoabr',
-  api_key: '487722317766787',
-  api_secret: 'wPrJS7RWPaJaOVxxfX4vCc9k8Aw'
-});
-
-// cloudinary.image("front_face.png", {
-//   secure: true, transformation: [
-//     { width: 150, height: 150 },
-//   ]
-// })
+cloudinary.config(Env.cloudinary);
 
 export {
   cloudinary

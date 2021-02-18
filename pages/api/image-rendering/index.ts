@@ -42,7 +42,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     form.on('file', (name, file) => {
       render.autosize(file)
         .then((metadata: any) => {
-          render.addImg(metadata).then(x =>{
+          render.addImg(metadata).then(() =>{
             deleteFile(file.path);
           });
         })
