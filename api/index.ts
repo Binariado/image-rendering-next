@@ -10,7 +10,10 @@ const responsed = async (resp: any, status: number) => {
 export const api = {
   async uploadImages(material: any) {
     try {
-      const { images, basePath } = material;
+      const { images } = material;
+      let myHeaders = new Headers();
+      myHeaders.append("Accept", "application/json");
+      myHeaders.append("Content-Type", "application/json");
 
       const formdata = new FormData();
 
@@ -18,11 +21,12 @@ export const api = {
         formdata.append('images', file, file.name)
       }
      
-      const request = new Request(`${basePath}/api/image-rendering`, {
+      const request = new Request(`${URL_API}/api/image-rendering`, {
         method: 'POST',
         body: formdata,
+        headers: myHeaders,
         redirect: 'follow',
-      })
+      });
 
       return await fetch(request)
         .then(async resp => {
