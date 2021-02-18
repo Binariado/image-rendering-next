@@ -5,10 +5,6 @@ import { api } from '../api'
 import { imagesAdd } from '../state/imagesReducer/images.actions'
 import Pusher from 'pusher-js'
 
-const pusher = new Pusher('417939ee8254e91f4f58', {
-  cluster: 'us2'
-});
-const channel = pusher.subscribe('channel-upload-images');
 
 /**
  *
@@ -52,6 +48,11 @@ export default function Upload() {
   const [executedFunction, cancelDebounce] = useDebounce((data) => {
     dispatch(imagesAdd(data));
   }, 1000);
+
+  const pusher = new Pusher('417939ee8254e91f4f58', {
+    cluster: 'us2'
+  });
+  const channel = pusher.subscribe('channel-upload-images');
 
   try {
     channel.bind('event-0123456789abcdef', function (e) {

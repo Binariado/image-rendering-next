@@ -1,16 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import { RenderingImg } from "../../../services/rendering";
-import Pusher from 'pusher';
-
-
-const pusher = new Pusher({
-  appId: "1157791",
-  key: "417939ee8254e91f4f58",
-  secret: "aaa4e0da19875746f36d",
-  cluster: "us2",
-  useTLS: true
-});
 
 const fs = require('fs');
 const render = new RenderingImg;

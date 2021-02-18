@@ -2,21 +2,13 @@ import { db } from "../firebase-config";
 import { imgUpload } from '../helpers/imgUpload'
 import { size } from '../helpers/autosize'
 import Pusher from 'pusher';
-import { Env } from '../utils/Env'
+import { Env } from "../utils/Env";
 
-
-const pusher = new Pusher({
-  appId: "1157791",
-  key: "417939ee8254e91f4f58",
-  secret: "aaa4e0da19875746f36d",
-  cluster: "us2",
-  useTLS: true
-});
-
+const pusher = new Pusher(Env.pusher);
 
 class RenderingImg {
   constructor() {
-    this.dbImage = db.collection("rendering-img");
+   // this.dbImage = db.collection("rendering-img");
   }
 
   autosize(file) {
@@ -27,12 +19,12 @@ class RenderingImg {
     return await imgUpload(metadata, (dataFile) => {
       const dataAllFile = {
         ...dataFile,
-        uid: db.collection('users-proteccion').doc('0123456789abcdef')
+        // uid: db.collection('users-proteccion').doc('0123456789abcdef')
       }
       pusher.trigger("channel-upload-images", "event-0123456789abcdef", {
         message: dataAllFile
       });
-      return this.dbImage.add(dataAllFile);
+     // return this.dbImage.add(dataAllFile);
     });
   }
 
