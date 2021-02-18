@@ -25,10 +25,10 @@ export const size = (file: FileProp): Promise<unknown> => {
   return new Promise((resolve) => {
     sharp(file.path)
       .metadata().then((dimensions) => {
-        const { height, orientation, width, format } = dimensions;
+        const { height = 0, orientation, width = 0, format } = dimensions;
         const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
-
-        const $orientation = orientation ? orientation : 0;
+        const searchOrientation = height > width ? 1 : 8;
+        const $orientation = orientation ? orientation : searchOrientation;
 
         const r1 = calculateAspectRatioFit(
           {
