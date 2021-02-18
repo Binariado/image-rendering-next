@@ -12,8 +12,6 @@ export const api = {
     try {
       const { images } = material;
       let myHeaders = new Headers();
-      myHeaders.append("Accept", "application/json");
-      myHeaders.append("Content-Type", "application/json");
 
       const formdata = new FormData();
 
@@ -21,7 +19,7 @@ export const api = {
         formdata.append('images', file, file.name)
       }
      
-      const request = new Request(`${URL_API}/api/image-rendering`, {
+      const request = new Request(`${URL_API}/image-rendering`, {
         method: 'POST',
         body: formdata,
         headers: myHeaders,
