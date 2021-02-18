@@ -1,4 +1,4 @@
-const URL_API = `https://${window.location.hostname}/api`;
+const URL_API = `/api`;
 
 const responsed = async (resp: any, status: number) => {
   return {
@@ -10,15 +10,15 @@ const responsed = async (resp: any, status: number) => {
 export const api = {
   async uploadImages(material: any) {
     try {
-      const { images } = material;
+      const { images, basePath } = material;
 
       const formdata = new FormData();
 
       for (const file of images) {
         formdata.append('images', file, file.name)
       }
-
-      const request = new Request(`${URL_API}/image-rendering`, {
+     
+      const request = new Request(`${basePath}/api/image-rendering`, {
         method: 'POST',
         body: formdata,
         redirect: 'follow',

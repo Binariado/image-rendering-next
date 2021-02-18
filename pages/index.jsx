@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useSelector } from 'react-redux'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/NavBar'
+import { useRouter } from 'next/router'
 
 const ORIENTATION = {
   "1": "vertical",

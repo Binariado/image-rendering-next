@@ -4,6 +4,7 @@ import { useForm, useDebounce } from '../hooks'
 import { api } from '../api'
 import { imagesAdd } from '../state/imagesReducer/images.actions'
 import Pusher from 'pusher-js'
+import { useRouter } from 'next/router'
 
 
 /**
@@ -13,6 +14,7 @@ import Pusher from 'pusher-js'
  * @return {Function} 
  */
 export default function Upload() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const refFile = React.useRef(null);
   const [formValue, handleInput, handleInputReset] = useForm({
@@ -20,6 +22,7 @@ export default function Upload() {
   });
 
   const { images } = formValue;
+  console.log(router.basePath)
 
   const uploadFile = async () => {
     if (images.length === 0) {
@@ -27,7 +30,7 @@ export default function Upload() {
     }
 
     try {
-      const resp = await api.uploadImages({ images });
+      const resp = await api.uploadImages({ images, basePath: router.basePath });
       console.log(resp);
       handleInputReset();
       refFile.current.value = '';
