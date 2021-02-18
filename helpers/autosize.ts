@@ -28,7 +28,7 @@ export const size = (file: FileProp): Promise<unknown> => {
         const { height, orientation, width, format } = dimensions;
         const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
 
-        const $orientation = orientation ? orientation : 0;
+        const $orientation = orientation ? orientation : 8;
 
         const r1 = calculateAspectRatioFit(
           {

@@ -9,6 +9,7 @@ const ORIENTATION = {
   "8": "horizontal",
   "3": "vertical",
   "6": "horizontal",
+  "0": "vertical",
 }
 
 const urlImageBase = 'https://res.cloudinary.com/dfcqfoabr/image/upload';
