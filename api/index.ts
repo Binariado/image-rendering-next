@@ -1,4 +1,4 @@
-const URL_API = "/api";
+const URL_API = `https://${window.location.hostname}/api`;
 
 const responsed = async (resp: any, status: number) => {
   return {
