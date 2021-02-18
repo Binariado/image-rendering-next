@@ -6,9 +6,10 @@ import { Env } from "../utils/Env";
 
 const pusher = new Pusher(Env.pusher);
 
+
 class RenderingImg {
   constructor() {
-   // this.dbImage = db.collection("rendering-img");
+    this.dbImage = db.collection("rendering-img");
   }
 
   autosize(file) {
@@ -19,12 +20,12 @@ class RenderingImg {
     return await imgUpload(metadata, (dataFile) => {
       const dataAllFile = {
         ...dataFile,
-        // uid: db.collection('users-proteccion').doc('0123456789abcdef')
+        uid: db.collection('users-proteccion').doc('0123456789abcdef')
       }
       pusher.trigger("channel-upload-images", "event-0123456789abcdef", {
         message: dataAllFile
       });
-     // return this.dbImage.add(dataAllFile);
+      return this.dbImage.add(dataAllFile);
     });
   }
 

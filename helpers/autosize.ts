@@ -34,11 +34,11 @@ export const size = (file: FileProp): Promise<unknown> => {
         const dataFile = {
           height: Math.floor(r1.height),
           width: Math.floor(r1.width),
-          orientation,
-          format,
-          path: file.path,
-          name: file.name,
-          size: file.size,
+          orientation: orientation ? orientation : 0,
+          format: format ? format : '',
+          path: file.path ? file.path : '',
+          name: file.name ? file.name : '',
+          size: file.size ? file.size : '',
         };
 
         resolve(dataFile);
