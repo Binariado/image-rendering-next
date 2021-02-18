@@ -28,19 +28,22 @@ export const size = (file: FileProp): Promise<unknown> => {
         const { height, orientation, width, format } = dimensions;
         const fullTamanio = TAMNIOPAGE[PAGEDEFAULT];
 
+        const $orientation = orientation ? orientation : 0;
+
         const r1 = calculateAspectRatioFit(
           {
             srcWidth: width,
             srcHeight: height,
             maxWidth: fullTamanio.w,
-            maxHeight: fullTamanio.h
+            maxHeight: fullTamanio.h,
+            orientation: $orientation,
           }
         );
 
         const dataFile = {
           height: Math.floor(r1.height),
           width: Math.floor(r1.width),
-          orientation: orientation ? orientation : 0,
+          orientation: $orientation,
           format: format ? format : '',
           path: file.path ? file.path : '',
           name: file.name ? file.name : '',

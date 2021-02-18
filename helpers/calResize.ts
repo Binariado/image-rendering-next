@@ -9,7 +9,8 @@ import { PropsResize } from '../utils/autoResize';
  * @param {Number} maxHeight altura máxima disponible
  * @return {Object} { width, height }
  */
-export function calculateAspectRatioFit({ srcWidth, srcHeight, maxWidth, maxHeight }: PropsResize) {
-  const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+export function calculateAspectRatioFit({ srcWidth, srcHeight, maxWidth, maxHeight, orientation }: PropsResize) {
+  const position = orientation === 1 || orientation === 3 ? [maxWidth, maxHeight]: [maxHeight, maxWidth];
+  const ratio = Math.min(position[0] / srcWidth, position[1] / srcHeight);
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 }
