@@ -11,7 +11,10 @@ import { PropsResize } from '../utils/autoResize';
  * @return {Object} { width, height }
  */
 export function calculateAspectRatioFit({ srcWidth, srcHeight, maxWidth, maxHeight, orientation }: PropsResize) {
-  const position = orientation === 8 || orientation === 6 ? [maxHeight, maxWidth]: [maxWidth, maxHeight];
-  const ratio = Math.min(position[0] / srcWidth, position[1] / srcHeight);
-  return { width: srcWidth * ratio, height: srcHeight * ratio };
+  if(srcHeight > maxHeight || srcWidth > maxWidth){
+    const position = orientation === 8 || orientation === 6 ? [maxHeight, maxWidth]: [maxWidth, maxHeight];
+    const ratio = Math.min(position[0] / srcWidth, position[1] / srcHeight);
+    return { width: srcWidth * ratio, height: srcHeight * ratio };
+  }
+  return { width: srcWidth , height: srcHeight };
 }
